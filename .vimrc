@@ -22,18 +22,27 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Plugins 
 call plug#begin('~/.vim/plugged')
-
-Plug 'gruvbox-community/gruvbox'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Color Scheme
+    Plug 'gruvbox-community/gruvbox'
+    " FZF 
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    " File browser
+    Plug 'preservim/nerdtree'
+    " Awesome auto complete
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Status bar
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    " Zen mode
+    Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
 colorscheme gruvbox
 set background=dark
 
+" Fast moving around window
 let mapleader = " "
 nnoremap <silent> <leader>h :wincmd h<CR>
 nnoremap <silent> <leader>j :wincmd j<CR>
@@ -41,21 +50,18 @@ nnoremap <silent> <leader>k :wincmd k<CR>
 nnoremap <silent> <leader>l :wincmd l<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>nt :NERDTreeToggle <CR>
-" NERDTree
+nnoremap <silent> <leader>nt :NERDTreeToggle <CR>
+nnoremap <silent> <leader>gy :Goyo <CR>
+
+" Currently this map only work on .py files
+nnoremap <silent> <leader>cci :CocCommand python.setInterpreter <CR>
+
+" NERDTree settings
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
-" Coc python
-nmap <leader>gd <Plug>(coc-definition)
+" Vim airline
+let g:airline#extensions#tabline#enabled = 1
 
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
