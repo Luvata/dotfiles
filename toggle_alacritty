@@ -11,16 +11,19 @@ fi
 WINDOWID=$(xdotool search --pid $PID)
 IS_VISIBLE=true
 xdotool set_desktop_for_window $WINDOWID $WORKSPACE
+
 [ -z $(xdotool search --onlyvisible --pid $PID) ] && IS_VISIBLE=false
 
 [ $(xdotool getwindowfocus) != "$WINDOWID" ] && {
         if [ $IS_VISIBLE == true ]; then
                 xdotool windowactivate $WINDOWID
+                wmctrl -i -r $WINDOWID -b add,fullscreen
         else
                 xdotool windowmap $WINDOWID
+                wmctrl -i -r $WINDOWID -b add,fullscreen
         fi
 
         exit 0
 }
 
-xdotool windowunmap $WINDOWID
+xdotool windowminimize $WINDOWID
