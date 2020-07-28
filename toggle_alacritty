@@ -1,29 +1,28 @@
 #!/bin/bash
 
-PID=$(pgrep alacritty)
-WORKSPACE=$(xdotool get_desktop)
-
-if [ -z "$PID" ]; then
+NEWLY_RUN=false
+if [ -z $(pgrep alacritty) ]; then
+        NEWLY_RUN=true
         alacritty &
-        exit 0
+        sleep 0.1
 fi
 
+PID=$(pgrep alacritty) 
+WORKSPACE=$(xdotool get_desktop)
 WINDOWID=$(xdotool search --pid $PID)
 IS_VISIBLE=true
 xdotool set_desktop_for_window $WINDOWID $WORKSPACE
+wmctrl -i -r $WINDOWID -b add,fullscreen
 
 [ -z $(xdotool search --onlyvisible --pid $PID) ] && IS_VISIBLE=false
 
 [ $(xdotool getwindowfocus) != "$WINDOWID" ] && {
         if [ $IS_VISIBLE == true ]; then
                 xdotool windowactivate $WINDOWID
-                wmctrl -i -r $WINDOWID -b add,fullscreen
         else
-                xdotool windowmap $WINDOWID
-                wmctrl -i -r $WINDOWID -b add,fullscreen
+                xdotool windowmap --sync $WINDOWID
         fi
-
         exit 0
 }
 
-xdotool windowminimize $WINDOWID
+[ $NEWLY_RUN != true ] && xdotool windowminimize $WINDOWID
