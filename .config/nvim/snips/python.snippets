@@ -6,10 +6,16 @@ from tqdm import tqdm
 
 endsnippet
 
-snippet impt "Import pytorch, optim, Functional"
+snippet impt "import pytorch, optim, functional"
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
+import torch.nn.functional as f
 
 endsnippet
+
+snippet ipee "Import IPython, embed for debug, then exit"
+__import__("IPython").embed();exit()
+
+endsnippet
+

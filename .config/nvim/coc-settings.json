@@ -1,5 +1,9 @@
 {
-    "python.formatting.provider": "autopep8",
+    "python.formatting.provider": "black",
     "python.autoComplete.addBrackets": true,
-    "snippets.userSnippetsDirectory": "~/.config/nvim/snips"
+    "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+    "coc.preferences.formatOnSaveFiletypes": ["python"],
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=127"],
+
 }
