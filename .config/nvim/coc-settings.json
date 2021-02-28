@@ -2,8 +2,9 @@
     "python.formatting.provider": "black",
     "python.autoComplete.addBrackets": true,
     "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+    "python.pythonPath": "~/miniconda3/envs/py3/bin/python",
     "coc.preferences.formatOnSaveFiletypes": ["python"],
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": ["--max-line-length=127"],
-
+    "coc.preferences.colorSupport": false
 }

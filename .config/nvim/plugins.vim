@@ -3,6 +3,7 @@ call plug#begin()
     Plug 'gruvbox-community/gruvbox'
     Plug 'sainnhe/gruvbox-material'
     Plug 'phanviet/vim-monokai-pro'
+    Plug 'junegunn/seoul256.vim'
     " FZF
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
